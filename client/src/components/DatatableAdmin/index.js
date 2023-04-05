@@ -18,15 +18,19 @@ useEffect (() => {
   })
 },[])
 
+const handleDelete = (id) => {
+  setDataTable(dataTable.filter((data) => data.id !== id))
+}
+
 console.log(dataTable)
 
 const actionColumn = [{ field: 'accao', headerName: 'Acção', width: 180, renderCell:(params)=>{
   return(
     <C.cellAction>
       <Link to={"/Admin/administradores/"+params.row.id} style={{textDecoration:'none'}}>
-        <C.viewButton>Ver</C.viewButton>
+        <C.viewButton>Editar</C.viewButton>
       </Link>
-      {/* <C.deleteButton onClick={() => handleDelete(params.row.id)}>Apagar</C.deleteButton> */}
+      <C.deleteButton onClick={() => handleDelete(params.row.id)}>Apagar</C.deleteButton>
    </C.cellAction>
   )
 }}

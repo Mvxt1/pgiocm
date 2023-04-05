@@ -26,6 +26,41 @@ app.get("/orfanatos", (req,res) => {
     });
 })
 
+//Apagar orfanato seleccionado
+app.delete("/Admin/orfanatos/:id", (req,res) => {
+    const {id} = req.params;
+
+    db.query(`DELETE FROM orfanato WHERE id = ${id}`, (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+//Actualizar informacoes do orfanato seleccionado
+app.put("/Admin/orfanatos/:id", (req,res) => {
+    const {id} = req.params;
+    const {nome} = req.body;
+    const {endereco} = req.body;
+    const {contacto} = req.body;
+    const {descricao} = req.body;
+
+    db.query(`UPDATE orfanato SET nome = ${nome}, endereco = ${endereco}, contacto=${contacto}, descricao=${descricao} WHERE id = ${id}`, (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+
 //Adicionar novo administrador de orfanato
 app.post("/Admin/administradores/newAdmin", (req,res) => {
     const {name} = req.body;

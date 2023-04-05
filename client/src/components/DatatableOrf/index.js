@@ -5,29 +5,28 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'nome', headerName: 'Nome', width: 160 },
-  { field: 'endereco', headerName: 'Localização', width: 160 },
-  { field: 'contacto', headerName: 'Telefone', width: 130 },
-  { field: 'nr_criancas', headerName: 'N° Crianças', type: Number, width: 100 },
-  { field: 'administrador', headerName: 'Administrador', width: 160 },
-  { field: 'accao', headerName: 'Acção', width: 180, renderCell:()=>{
-
-    return( 
-      <C.cellAction>
-        <Link to="/Admin/orfanatos/sergio" style={{textDecoration: 'none'}}> 
-          <C.viewButton>Ver</C.viewButton>
-        </Link>
-        <C.deleteButton>Apagar</C.deleteButton>
-     </C.cellAction>
-    )
-  }},
-];
-
-
 
 function DataTableOrf() {
+
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'nome', headerName: 'Nome', width: 160 },
+    { field: 'endereco', headerName: 'Localização', width: 160 },
+    { field: 'contacto', headerName: 'Telefone', width: 130 },
+    { field: 'nr_criancas', headerName: 'N° Crianças', type: Number, width: 100 },
+    { field: 'administrador', headerName: 'Administrador', width: 160 },
+    { field: 'accao', headerName: 'Acção', width: 180, renderCell:(params)=>{
+  
+      return( 
+        <C.cellAction>
+          <Link to={"/Admin/orfanatos/"+params.row.id} style={{textDecoration: 'none'}}> 
+            <C.viewButton>Editar</C.viewButton>
+          </Link>
+          <C.deleteButton onClick={() => handleDelete(params.row.id)}>Apagar</C.deleteButton>
+       </C.cellAction>
+      )
+    }},
+  ];
 
   const [dataTable,setDataTable] = useState ([]);
 
@@ -38,7 +37,15 @@ function DataTableOrf() {
     })
   },[])
 
-  console.log(dataTable)
+
+  const handleDelete = async(id) => {
+    try {
+      axios.delete(`http://localhost:3001/Admin/orfanatos/${id}`)
+      setDataTable(dataTable.filter((data) => data.id !== id))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <C.datatable>

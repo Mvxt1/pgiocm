@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function InputMulti({OnChange, Id, Name}) {
+export default function InputMulti({DefaultValue ,OnChange, Id, Name, Value}) {
   const [value, setValue] = React.useState('Controlled');
 
   const handleChange = (event) => {
@@ -26,6 +26,7 @@ export default function InputMulti({OnChange, Id, Name}) {
           multiline
           rows={4}
           color='success'
+          defaultValue={DefaultValue}
           onChange={OnChange}
         />
       </div>

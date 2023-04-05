@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function Input({Label, Id, Name, OnChange, Type, stats, Value, Size, Required}) {
+export default function Input({DefaultValue ,Label, Id, Name, OnChange, Type, stats, Value, Size, Required}) {
   return (
     <Box
       component="form"
@@ -12,7 +12,7 @@ export default function Input({Label, Id, Name, OnChange, Type, stats, Value, Si
       noValidate
       autoComplete="off"
     >
-      <TextField required={Required} value={Value} name={Name} disabled={stats} id={Id} type={Type} label={Label} onChange={OnChange} variant="outlined" color='success' />
+      <TextField defaultValue={DefaultValue} required={Required} value={Value} name={Name} disabled={stats} id={Id} type={Type} label={Label} onChange={OnChange} variant="outlined" color='success' />
     </Box>
   );
 }

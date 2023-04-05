@@ -20,7 +20,6 @@ function Orfanatos() {
     console.log(dataTable)
   },[])
 
-
   return (
     <C.Container>
       <NavbarHome />
@@ -32,6 +31,7 @@ function Orfanatos() {
           return(
             <div id={record.id}>
             <VerticalCard
+            Id={record.id}
             Nome={record.nome} 
             Localizacao={record.endereco}
             Telefone={record.contacto}
