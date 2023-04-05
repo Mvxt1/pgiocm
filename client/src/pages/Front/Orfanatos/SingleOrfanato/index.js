@@ -13,8 +13,10 @@ import FaceIcon from '@mui/icons-material/Face';
 
 
 function SingleOrfanato() { 
+
+  
   return (
-    <C.Container>
+    <C.Container> 
         <NavbarHome />
         <Header title='Casa da Alegria' path={foto} />
         <C.Top> 

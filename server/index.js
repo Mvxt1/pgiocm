@@ -13,6 +13,19 @@ app.use(bodyParser.json({limit:'10mb'}))
 app.use("/doacao",mpesaRoutes)
 
 
+//Listar todos os orfanatos
+app.get("/orfanatos", (req,res) => {
+    db.query('SELECT * FROM orfanato', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
 //Adicionar novo administrador de orfanato
 app.post("/Admin/administradores/newAdmin", (req,res) => {
     const {name} = req.body;
