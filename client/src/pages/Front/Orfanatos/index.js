@@ -11,7 +11,7 @@ import axios from 'axios'
 function Orfanatos() {
 
   const [dataTable,setDataTable] = useState([]);
-
+  
   useEffect (() => {
     axios.get('http://localhost:3001/orfanatos').then(res => res.data)
     .then((data) => {

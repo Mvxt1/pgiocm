@@ -1,35 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import * as C from './styles'
 import CasaAlegria from '../../images/CasaAlegria.jpg'
+import axios from 'axios'
 
 function Orfanato() {
-  return ( 
+
+    const [dataTable, setDataTable] = useState([])
+
+    useEffect (() => {
+        axios.get('http://localhost:3001/orfanatos4').then(res => res.data)
+        .then((data) => {
+            setDataTable(data)
+        })
+        console.log(dataTable)
+        },[])
+
+  return (  
     <C.OrfanatoContainer>
         <C.OrfanatoH1>ORFANATOS</C.OrfanatoH1>
         <C.OrfanatoWrapper>
-            <C.OrfanatoCard>
-                <C.OrfanatoIcon src={CasaAlegria} />
-                <C.OrfanatoH2>Casa da Alegria</C.OrfanatoH2>
-                <C.OrfanatoP>Casa da Alegira e' sesta aqui</C.OrfanatoP>
-            </C.OrfanatoCard>
-            <C.OrfanatoCard>
-                <C.OrfanatoIcon src={CasaAlegria} />
-                <C.OrfanatoH2>1o de maio</C.OrfanatoH2>
-                <C.OrfanatoP>Casa da Alegira e' aqui</C.OrfanatoP>
-            </C.OrfanatoCard>
-            <C.OrfanatoCard>
-                <C.OrfanatoIcon src={CasaAlegria} />
-                <C.OrfanatoH2>Remar</C.OrfanatoH2>
-                <C.OrfanatoP>Casa da Alegira e' sesta aqui</C.OrfanatoP>
-            </C.OrfanatoCard>
-            <C.OrfanatoCard>
-                <C.OrfanatoIcon src={CasaAlegria} />
-                <C.OrfanatoH2>Orfanato </C.OrfanatoH2>
-                <C.OrfanatoP>Casa da Alegira e' sesta aqui</C.OrfanatoP>
-            </C.OrfanatoCard>
+            {
+                dataTable.map( record => {
+                    return(
+                        <div id={record.id}>
+                         <C.OrfanatoCard>
+                            <C.OrfanatoIcon src={CasaAlegria} />
+                            <C.OrfanatoH2>{record.nome}</C.OrfanatoH2>
+                        </C.OrfanatoCard>
+                        </div>
+                    )
+                })
+            }
         </C.OrfanatoWrapper>
     </C.OrfanatoContainer>
-  )
+    )
 }
 
 export default Orfanato

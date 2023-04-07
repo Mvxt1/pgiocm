@@ -36,7 +36,9 @@ function OrfSingle() {
 
     const updateInfo = async(id, body) => {
         try {
-          axios.put(`http://localhost:3001/Admin/orfanatos/${id}`)
+            const nome = body.nome
+             
+            axios.put(`http://localhost:3001/Admin/orfanatos/${id}`)
         } catch (error) {
           console.log(error)
         }

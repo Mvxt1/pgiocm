@@ -2,7 +2,7 @@ import React from 'react'
 import * as C from './styles'
 import SidebarOrf from '../../../../components/SidebarOrf'
 import NavbarOrf from '../../../../components/NavbarOrf'
-import DataTable from '../../../../components/DatatableAdmin'
+import DataTable from '../../../../components/DatatableActividades'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {Link} from 'react-router-dom'
 
@@ -17,7 +17,7 @@ function ListActividade() {
                 <ArrowBackIcon className='icon'/>
                 Lista de Actividades
               </C.back>
-              <Link to='/Admin/administradores/newAdmin'>
+              <Link to='/backOrf/newactividade'>
               <C.buttonMod> Criar </C.buttonMod>
               </Link>
             </C.titles>

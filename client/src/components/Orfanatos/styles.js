@@ -52,8 +52,9 @@ export const OrfanatoH1 = styled.h1`
 `
 
 export const OrfanatoH2 = styled.h2`
-    font-size: 1rem;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    
 `
 
 export const OrfanatoP = styled.p`

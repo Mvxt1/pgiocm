@@ -26,6 +26,32 @@ app.get("/orfanatos", (req,res) => {
     });
 })
 
+//Listar todas actividades
+app.get("/actividade", (req,res) => {
+    db.query('SELECT * FROM actividade', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+//Listar 4 orfanatos recentes
+app.get("/orfanatos4", (req,res) => {
+    db.query('SELECT * FROM orfanato ORDER BY id DESC LIMIT 4', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
 //Apagar orfanato seleccionado
 app.delete("/Admin/orfanatos/:id", (req,res) => {
     const {id} = req.params;
@@ -70,6 +96,19 @@ app.post("/Admin/administradores/newAdmin", (req,res) => {
     let SQL = "INSERT INTO super_administrador (nome,apelido,senha) VALUES (?,?,?)"
 
     db.query(SQL, [name,apelido,senha], (err, result) => {
+        console.log(err);
+    })
+})
+
+//Adicionar nova actividade de orfanato
+app.post("/backOrf/newactividade", (req,res) => {
+    const {titulo} = req.body;
+    const {data_act} = req.body.dateValue;
+    const {texto} = req.body;
+
+    let SQL = "INSERT INTO actividade (titulo,data_act,texto) VALUES (?,?,?)"
+
+    db.query(SQL, [titulo,data_act,texto], (err, result) => {
         console.log(err);
     })
 })
