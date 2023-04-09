@@ -30,7 +30,7 @@ function NewActividade() {
     const handleClickButton = () => {
         axios.post('http://localhost:3001/backOrf/newactividade', {
             titulo: data.titulo,
-            data_act: data.data,
+            data_act: data.data_act,
             texto: data.texto
         }).then((response)=> {
             // navigate("/backOrf/actividade")

@@ -103,7 +103,7 @@ app.post("/Admin/administradores/newAdmin", (req,res) => {
 //Adicionar nova actividade de orfanato
 app.post("/backOrf/newactividade", (req,res) => {
     const {titulo} = req.body;
-    const {data_act} = req.body.dateValue;
+    const {data_act} = req.body;
     const {texto} = req.body;
 
     let SQL = "INSERT INTO actividade (titulo,data_act,texto) VALUES (?,?,?)"
@@ -193,6 +193,19 @@ app.get("/Admin/administradores", (req,res) => {
 //Get todos os orfanatos
 app.get("/Admin/orfanatos", (req,res) => {
     db.query('SELECT * FROM orfanato', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    })
+})
+
+//Get todos os orfanatos
+app.get("/backOrf/actividade", (req,res) => {
+    db.query('SELECT * FROM actividade LIMIT 2', (err,result) => {
         if(err){
             res.status(500).json({err});
             console.log(err);
