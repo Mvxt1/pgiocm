@@ -13,7 +13,10 @@ function NewOrf() {
 
     const [file,setFile] = useState("");
     const [data, setData] = useState({});
-    const [nome, setNome] = useState("")
+    const [nome, setNome] = useState("");
+    const [localizacao, setLocalizacao] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [descricao, setDescricao] = useState("");
 
     const setImgFile = (event) => {
         setFile(event.target.files[0]);
@@ -23,9 +26,25 @@ function NewOrf() {
         setNome(event.target.value);
       };
 
+    const setlocValue = (event) => {
+    setLocalizacao(event.target.value);
+    };
+
+    const setTelValue = (event) => {
+        setTelefone(event.target.value);
+      };
+
+      const setDesValue = (event) => {
+        setDescricao(event.target.value);
+      };
+
     const formData = new FormData();
     formData.append('image', file); 
     formData.append('nome', nome);
+    formData.append('endereco', localizacao);
+    formData.append('contacto', telefone);
+    formData.append('descricao', descricao);
+
 
     const configVars = {
         headers:{
@@ -95,7 +114,7 @@ function NewOrf() {
                                     <Input 
                                         Label="Localização"
                                         Id="endereco"
-                                        OnChange={handleInput}
+                                        OnChange={setlocValue}
                                     />
                                 </div>
                             </C.linha>
@@ -104,7 +123,7 @@ function NewOrf() {
                                     <Input 
                                         Label="Telefone"
                                         Id="contacto"
-                                        OnChange={handleInput}
+                                        OnChange={setTelValue}
                                     />
                                 </div>
                                 <div>
@@ -119,7 +138,7 @@ function NewOrf() {
                                 <InputMulti 
                                     Id="descricao"
                                     Name="Descricao"
-                                    OnChange={handleInput}
+                                    OnChange={setDesValue}
                                 />
                             </C.linha>
                             <div className='bt'>
