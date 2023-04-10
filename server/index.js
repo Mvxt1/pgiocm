@@ -2,9 +2,35 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const multer = require('multer')
+const path = require('path')
+
+
 
 const mpesaRoutes = require('./router/token')
 const db = require('./database/database')
+
+var imgconfig = multer.diskStorage({
+    destination:(req,file,callback) => {
+        callback(null,"../images")
+    },
+    filename:(req,file,callback)=>{
+        callback(null,`image-${Date.now()}.${file.originalname}`)
+    }
+})
+
+const isImage = (req,file,callback)=>{
+    if(file.mimetype.startsWith("image")){
+        callback(null,true)
+    }else{
+        callback(null,Error("So pode usar imagens"))
+    }
+}
+
+var upload = multer({
+    storage: imgconfig,
+    fileFilter: isImage
+})
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}))
@@ -42,6 +68,19 @@ app.get("/actividade", (req,res) => {
 //Listar 4 orfanatos recentes
 app.get("/orfanatos4", (req,res) => {
     db.query('SELECT * FROM orfanato ORDER BY id DESC LIMIT 4', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+//Listar 5 orfanatos recentes
+app.get("/Admin/orfanatos5", (req,res) => {
+    db.query('SELECT * FROM orfanato ORDER BY id DESC LIMIT 5', (err,result) => {
         if(err){
             res.status(500).json({err});
             console.log(err);
@@ -163,18 +202,18 @@ app.get('/admin/nr/orfanatos', (req,res) => {
 })
 
 //Criar novo orfanato
-app.post("/Admin/orfanatos/newOrf", (req,res) => {
+app.post("/Admin/orfanatos/newOrf", upload.single('image'), (req,res) => {
     const {nome} = req.body;
     const {descricao} = req.body;
     const {endereco} = req.body;
     const {contacto} = req.body;
+    const {filename} = req.file;
 
-    let SQL = "INSERT INTO orfanato (nome,descricao,endereco,contacto) VALUES (?,?,?,?)"
+    let SQL = "INSERT INTO orfanato (nome,descricao,endereco,contacto, image) VALUES (?,?,?,?,?)"
 
-    db.query(SQL, [nome,descricao,endereco,contacto], (err,result) => {
+    db.query(SQL, [nome,descricao,endereco,contacto,filename], (err,result) => {
         console.log(err);
     })
-
 })
 
 //Get todos os administradores

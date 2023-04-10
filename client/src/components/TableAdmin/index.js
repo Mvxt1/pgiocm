@@ -16,7 +16,7 @@ function TableAdmin() {
     const [dataTable,setDataTable] = useState ([]);
 
     useEffect (() => {
-        axios.get('http://localhost:3001/Admin/orfanatos').then(res => res.data)
+        axios.get('http://localhost:3001/Admin/orfanatos5').then(res => res.data)
         .then((data) => {
         setDataTable(data)
         })

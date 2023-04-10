@@ -13,9 +13,28 @@ function NewOrf() {
 
     const [file,setFile] = useState("");
     const [data, setData] = useState({});
+    const [nome, setNome] = useState("")
+
+    const setImgFile = (event) => {
+        setFile(event.target.files[0]);
+      };
+
+    const setNomeValue = (event) => {
+        setNome(event.target.value);
+      };
+
+    const formData = new FormData();
+    formData.append('image', file); 
+    formData.append('nome', nome);
+
+    const configVars = {
+        headers:{
+            "Content-Type" : "multipart/form-data",
+        }
+    }
 
     const handleClickButton = () => {
-        axios.post('http://localhost:3001/Admin/orfanatos/newOrf', {
+        axios.post('http://localhost:3001/Admin/orfanatos/newOrf', formData, configVars, { 
             nome: data.nome,
             descricao: data.descricao,
             endereco: data.endereco,
@@ -24,6 +43,7 @@ function NewOrf() {
             console.log(response)
         })
     }
+
 
     const handleInput = (e) => {
         const id = e.target.id;
@@ -46,15 +66,19 @@ function NewOrf() {
                 </C.titles>
                 <C.admin>
                     <C.cima>
-                        <img src={Foto} alt="" className='foto'/>
+                        <img src={ file
+                  ? URL.createObjectURL(file)
+                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+              } alt="" className='foto'/>
                     </C.cima>
                     <C.meio>
                         <form>
                             <C.imgInput>
                                 <input 
                                     type="file" 
-                                    id="file" 
-                                    onChange={(e) => setFile(e.target.files[0])} 
+                                    name='image'
+                                    id="image" 
+                                    onChange={setImgFile} 
                                     style={{color:'transparent'}}
                                 />
                             </C.imgInput>
@@ -64,7 +88,7 @@ function NewOrf() {
                                     <Input 
                                         Label="Nome" 
                                         Id="nome"
-                                        OnChange={handleInput}
+                                        OnChange={setNomeValue}
                                     />
                                 </div>
                                 <div>

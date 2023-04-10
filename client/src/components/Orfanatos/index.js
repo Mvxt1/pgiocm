@@ -3,7 +3,7 @@ import * as C from './styles'
 import CasaAlegria from '../../images/CasaAlegria.jpg'
 import axios from 'axios'
 
-function Orfanato() {
+function Orfanato() { 
 
     const [dataTable, setDataTable] = useState([])
 

@@ -12,11 +12,20 @@ import axios from 'axios'
 
 function OrfSingle() {
 
+    const [selectedFile, setSelectedFile] = useState("");
     const [dataServer,setDataServer] = useState ([]);
     const slug = window.location.pathname;
     const id = /[^/]*$/.exec(slug)[0];
     const [values, setValues] = useState();
 
+
+    const setImgFile = (event) => {
+        setSelectedFile(event.target.files[0]);
+      };
+
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+      
     const handleChangeValues = (value) => {
         console.log(values)
         setValues((prevValue) => ({
@@ -34,11 +43,14 @@ function OrfSingle() {
 
     const filtered = dataServer.filter((data) => data.id == id);
 
-    const updateInfo = async(id, body) => {
+    const updateInfo = () => {
         try {
-            const nome = body.nome
-             
-            axios.put(`http://localhost:3001/Admin/orfanatos/${id}`)
+            // const nome = body.nome 
+            // axios.put(`http://localhost:3001/Admin/orfanatos/${id}`)
+            axios.post('http://localhost:3001/api/orfanato', formData).then(res => res.data)
+                .then((data) => {
+                    console.log(data)
+                })
         } catch (error) {
           console.log(error)
         }
@@ -73,12 +85,14 @@ function OrfSingle() {
                             return(
                                 <>
                                 <C.cima>
-                                    <img src={Alegria} alt="" className='foto'/>
+                                    <img src={ selectedFile ? URL.createObjectURL(selectedFile)
+                                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} 
+                                    alt="" className='foto'/>
                                 </C.cima>
                                 <C.meio>
                                     <form>
                                         <C.imgInput>
-                                            <input type="file" style={{color:'transparent'}}/>
+                                            <input type="file" onChange={setImgFile} style={{color:'transparent'}}/>
                                         </C.imgInput>
                                     </form>
                                     <C.nome> {data.nome} </C.nome>    
