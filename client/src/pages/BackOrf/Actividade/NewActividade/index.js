@@ -33,9 +33,9 @@ function NewActividade() {
             data_act: data.data_act,
             texto: data.texto
         }).then((response)=> {
-            // navigate("/backOrf/actividade")
             console.log(response)
         })
+        navigate("/backOrf/actividade")
     }
     
 

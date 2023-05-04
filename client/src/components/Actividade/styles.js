@@ -42,7 +42,7 @@ export const ActContent = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 800px;
+    width: 810px;
  
 `
 
@@ -62,6 +62,8 @@ export const ActH2 = styled.h2`
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
+    margin-bottom:-10px
+
 `
 
 export const ActP = styled.p`

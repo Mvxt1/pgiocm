@@ -10,7 +10,7 @@ function Navbar() {
         <C.wrapper>
            <C.item>
             <AccountCircleIcon />
-            YEE
+            Casa Da Alegria
            </C.item>
            <C.item>
             <ListIcon />

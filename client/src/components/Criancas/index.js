@@ -3,12 +3,12 @@ import * as C from './styles'
 import CasaAlegria from '../../images/orf.png'
 import axios from 'axios'
 
-function Orfanato() { 
+function Criancas() { 
 
     const [dataTable, setDataTable] = useState([])
 
     useEffect (() => {
-        axios.get('http://localhost:3001/orfanatos4').then(res => res.data)
+        axios.get('http://localhost:3001/todaCrianca').then(res => res.data)
         .then((data) => {
             setDataTable(data)
         })
@@ -17,7 +17,7 @@ function Orfanato() {
 
   return (  
     <C.OrfanatoContainer>
-        <C.OrfanatoH1>ORFANATOS</C.OrfanatoH1>
+        <C.OrfanatoH1>Criancas</C.OrfanatoH1>
         <C.OrfanatoWrapper>       
             {
                 dataTable.map( record => {
@@ -39,4 +39,4 @@ function Orfanato() {
     )
 }
 
-export default Orfanato
+export default Criancas

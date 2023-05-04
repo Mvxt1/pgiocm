@@ -105,7 +105,7 @@ function Doacao() {
                 <div style={{display: 'flex', justifyContent: 'center', paddingBottom: '5px'}}>
                     <C.InformacaoSucess>{processando && <Progress/>}</C.InformacaoSucess>
                     <C.InformacaoSucess>{desprocessandoSuccess && "PARABENS!"}</C.InformacaoSucess>
-                    <C.InformacaoFailed>{desprocessandoSuccess && "SEM EXITO!"}</C.InformacaoFailed>
+                    {/* <C.InformacaoFailed>{desprocessandoSuccess && "SEM EXITO!"}</C.InformacaoFailed> */}
                 </div>
             
             <DialogActions>

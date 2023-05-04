@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import * as C from './styles'
 import axios from 'axios'
+import CasaAlegria from '../../images/orf.png'
+
 
 function Actividade() {
 
@@ -24,9 +26,9 @@ function Actividade() {
                     return(
                         <>
                          <C.ActCard>
-                            <C.ActIcon />
+                            <C.ActIcon src={CasaAlegria}/>
                             <C.ActContent>
-                                <C.ActH2>Casa da Alegria</C.ActH2>
+                                <C.ActH2>Casa da Alegria - {record.titulo}</C.ActH2>
                                 <C.ActP>{record.texto}</C.ActP>
                             </C.ActContent>
                         </C.ActCard>

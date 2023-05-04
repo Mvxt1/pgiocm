@@ -92,7 +92,7 @@ function NewCrianca({title}) {
                 <C.titles>
                     <C.back>
                         <ArrowBackIcon className='icon' />
-                        {title} sadas
+                        Registrar Crianca
                     </C.back>
                 </C.titles>
                 <C.admin>

@@ -4,26 +4,29 @@ import SidebarOrf from '../../components/SidebarOrf'
 import NavbarOrf from '../../components/NavbarOrf'
 import MinWidget from '../../components/minWidget'
 import TableOrf from '../../components/TableOrf'
-import { collection, query, getDocs } from 'firebase/firestore';
-import { db } from "../../firebase";
+import axios from 'axios'
+
 
 
 function backOrfa() {
 
-  const [amount,setAmount] = useState(null)
+  const [amountCrianca,setAmountCrianca] = useState(null)
+  const [amountActividade, setAmountActividade] = useState(null)
 
   useEffect (() => {
-    const fetchData = async () => {
-      const userNumber = query(
-        collection(db, 'administrador'),
-      );
-
-      const number = await getDocs(userNumber)
-      setAmount(number.docs.length)
+    const fetchCount = async () => {
+      try{
+        const fetchDataOrfanato = await axios.get('http://localhost:3001/admin/nr/crianca');
+        setAmountCrianca(fetchDataOrfanato.data[0]['COUNT(*)'])
+        const fetchDataAdmin = await axios.get('http://localhost:3001/admin/nr/actividade');
+        setAmountActividade(fetchDataAdmin.data[0]['COUNT(*)'])
+      }
+      catch (err){
+        console.log(err);
+      }
     }
-    fetchData()
+    fetchCount();
   },[])
-
 
   return (
     <C.Home>
@@ -37,13 +40,13 @@ function backOrfa() {
           Bem-vindo Casa da Alegria 
         </C.subtitle>
         <C.widgets>
-          <MinWidget title='Crianças' counter='4' link='Ver todas as crianças' 
+          <MinWidget title='Crianças' counter={amountCrianca} link='Ver todas as crianças' 
           caminho='/backOrf/newcrianca' caminho2="/backOrf/crianca"/>
-          <MinWidget title='Actividades' counter={amount} link='Ver todas actividades' 
+          <MinWidget title='Actividades' counter={amountActividade} link='Ver todas actividades' 
           caminho='/backOrf/newactividade' caminho2="/backOrf/actividade"/>
-          <MinWidget title='Adopção' counter='4' link='Ver todos os pedidos' 
+          <MinWidget title='Adopção' counter='0' link='Ver todos os pedidos' 
           caminho='/Admin/orfanatos/newOrf' caminho2="/Admin/orfanatos"/>
-          <MinWidget title='Doações' counter={amount} link='Ver todos os historicos' 
+          <MinWidget title='Doações' counter='0' link='Ver todos os historicos' 
           caminho='/Admin/administradores/newAdmin' caminho2="/Admin/administradores"/>
         </C.widgets>
         <C.listContainer>

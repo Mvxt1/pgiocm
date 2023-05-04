@@ -65,9 +65,24 @@ app.get("/actividade", (req,res) => {
     });
 })
 
+
+//Listar todas criancas
+app.get("/crianca", (req,res) => {
+    db.query('SELECT * FROM crianca', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+
 //Listar 4 orfanatos recentes
 app.get("/orfanatos4", (req,res) => {
-    db.query('SELECT * FROM orfanato ORDER BY id DESC LIMIT 4', (err,result) => {
+    db.query('SELECT * FROM orfanato ORDER BY id ASC LIMIT 4', (err,result) => {
         if(err){
             res.status(500).json({err});
             console.log(err);
@@ -81,6 +96,19 @@ app.get("/orfanatos4", (req,res) => {
 //Listar 5 orfanatos recentes
 app.get("/Admin/orfanatos5", (req,res) => {
     db.query('SELECT * FROM orfanato ORDER BY id DESC LIMIT 5', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+//Listar 5 criancas recentes
+app.get("/backOrf/crianca5", (req,res) => {
+    db.query('SELECT * FROM crianca ORDER BY id DESC LIMIT 5', (err,result) => {
         if(err){
             res.status(500).json({err});
             console.log(err);
@@ -185,6 +213,32 @@ app.get('/admin/nr/admin', (req,res) => {
             }
     });
 
+})
+
+//Contagem de crianncas
+app.get('/admin/nr/crianca', (req,res) => {
+    db.query('SELECT COUNT(*) FROM crianca', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
+})
+
+//Contagem de actividades
+app.get('/admin/nr/actividade', (req,res) => {
+    db.query('SELECT COUNT(*) FROM actividade', (err,result) => {
+        if(err){
+            res.status(500).json({err});
+            console.log(err);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    });
 })
 
 //Contagem de orfanatos

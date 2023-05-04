@@ -12,6 +12,7 @@ export const Top = styled.div`
     gap: 20px;
     align-items: center;
     justify-content: center;
+    padding-bottom: 20px;
 `
 
 export const TLeft = styled.div`

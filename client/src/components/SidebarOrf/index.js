@@ -66,14 +66,14 @@ function    SidebarOrf() {
                     </li>
                 </Link>
 
-                <Link to="/Admin/administradores" style={{textDecoration: "none"}}>
+                <Link to="" style={{textDecoration: "none"}}>
                     <li>
                         <EscalatorWarning className='icon'/>
                         <span>Adopção</span>
                     </li>
                 </Link>
 
-                <Link to="/Admin/orfanatos" style={{textDecoration: "none"}}>
+                <Link to="" style={{textDecoration: "none"}}>
                     <li>
                         <AttachMoneyIcon className='icon'/>
                         <span>Doações</span>

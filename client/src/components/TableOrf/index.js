@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as C from './styles'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,44 +7,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import axios from 'axios';
 
+ 
 function TableOrf() {
 
-    const rows = [
-        {
-            id:1,
-            nome: 'Berta Almeida',
-            localizacao: 'Martins',
-            Telefone: '5',
-            nrCriancas: 'Femenino'
-        },
-        {
-            id:2,
-            nome: 'Alice ',
-            localizacao: 'Massango',
-            Telefone: '7',
-            nrCriancas: 'Femenino'
-        },
-        {
-            id:3,
-            nome: 'Pedro',
-            localizacao: 'Chionisse',
-            Telefone: '6',
-            nrCriancas: 'Masculino'
-        },{
-            id:4,
-            nome: 'Carlos',
-            localizacao: 'David',
-            Telefone: '5',
-            nrCriancas: 'Masculino'
-        },{
-            id:5,
-            nome: 'Marcos',
-            localizacao: 'Chongo',
-            Telefone: '8',
-            nrCriancas: 'Masculino'
-        },
-    ]
+    const [dataTable,setDataTable] = useState ([]);
+
+    useEffect (() => {
+        axios.get('http://localhost:3001/backOrf/crianca5').then(res => res.data)
+        .then((data) => {
+        setDataTable(data)
+        })
+    },[])
+
+    console.log(dataTable)
 
   return (
     <C.table>
@@ -60,14 +37,14 @@ function TableOrf() {
             </TableRow>
             </TableHead>
             <TableBody>
-            {rows.map((row) => (
+            {dataTable.map((dataTable) => (
                 <TableRow
-                key={row.id}>
-                <TableCell><C.tableCell>{row.id}</C.tableCell></TableCell>
-                <TableCell><C.tableCell>{row.nome}</C.tableCell></TableCell>
-                <TableCell><C.tableCell>{row.localizacao}</C.tableCell></TableCell>
-                <TableCell><C.tableCell>{row.Telefone}</C.tableCell></TableCell>
-                <TableCell><C.tableCell>{row.nrCriancas}</C.tableCell></TableCell>
+                key={dataTable.id}>
+                <TableCell><C.tableCell>{dataTable.id}</C.tableCell></TableCell>
+                <TableCell><C.tableCell>{dataTable.nome}</C.tableCell></TableCell>
+                <TableCell><C.tableCell>{dataTable.apelido}</C.tableCell></TableCell>
+                <TableCell><C.tableCell>{dataTable.idade}</C.tableCell></TableCell>
+                <TableCell><C.tableCell>{dataTable.genero}</C.tableCell></TableCell>
                 </TableRow>
             ))}
             </TableBody>
